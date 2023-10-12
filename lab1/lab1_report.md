@@ -8,7 +8,7 @@ Group: K4111c\
 Author: Zhukov Pavel Yurievich\
 Lab: Lab1\
 Date of create: 08.10.2023\
-Date of finished:
+Date of finished: 12.10.2023
 
 ## 0. Введение
 
