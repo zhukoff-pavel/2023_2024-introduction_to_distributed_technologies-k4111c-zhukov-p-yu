@@ -1,0 +1,75 @@
+apiVersion: v1
+data:
+  REACT_APP_USERNAME: "zhukoff-pavel"
+  REACT_APP_COMPANY_NAME: "ITMO"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: config
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: itdt-contained-frontend
+        image: ifilyaninitmo/itdt-contained-frontend:master
+        ports:
+        - containerPort: 3000
+          name: http
+        envFrom:
+          - configMapRef:
+              name: config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      protocol: TCP
+      name: http
+  selector:
+    app: app
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+spec:
+  tls:
+    - hosts:
+        - test-k8s-lab.app
+      secretName: app-tls
+  rules:
+    - host: test-k8s-lab.app
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app
+                port:
+                  name: http
