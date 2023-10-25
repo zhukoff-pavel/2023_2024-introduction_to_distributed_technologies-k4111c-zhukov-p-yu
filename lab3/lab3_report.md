@@ -1,4 +1,4 @@
-# Развертывание веб-сервиса в Minikube, доступ к веб-интерфейсу сервиса. Мониторинг сервиса
+# Сертификаты и "секреты" в Minikube, безопасное хранение данных
 
 University: [ITMO University](https://itmo.ru/ru/)\
 Faculty: [FICT](https://fict.itmo.ru)\
